@@ -29,4 +29,4 @@ Import database.sql if available
 
 Run the App
 
-Go to: http://localhost/energrid.html/login.html
+Go to: http://localhost/energrid1.html/login.html
