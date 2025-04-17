@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fault Detection - Smart Building</title>
+  <link rel="stylesheet" href="astyles.css" />
+</head>
+<body>
+
+  <!-- Main Content Only -->
+  <div class="main">
+    <div class="container">
+      <h1>Device Fault Detection</h1>
+
+      <!-- Status Cards -->
+      <div class="status-cards">
+        <div class="card">
+          <h2><span class="dot red"></span> AC - Faulty</h2>
+        </div>
+        <div class="card">
+          <h2><span class="dot green"></span> Lights - Normal</h2>
+        </div>
+        <div class="card">
+          <h2><span class="dot yellow"></span> Fan - Low Voltage</h2>
+        </div>
+      </div>
+
+      <!-- Fault Table -->
+      <div class="fault-table">
+        <h2>Fault Log</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Device</th>
+              <th>Status</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody id="faultTableBody">
+            <tr>
+              <td>AC</td>
+              <td style="color: red;">Fault Detected</td>
+              <td>2025-04-15 10:24 AM</td>
+            </tr>
+            <tr>
+              <td>Fan</td>
+              <td style="color: orange;">Low Voltage</td>
+              <td>2025-04-15 09:10 AM</td>
+            </tr>
+            <tr>
+              <td>Lights</td>
+              <td style="color: green;">Normal</td>
+              <td>2025-04-15 08:45 AM</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <button class="primary-btn" onclick="openForm()">Add Fault Manually</button>
+    </div>
+  </div>
+
+  <!-- Overlay and Modal Form -->
+  <div class="form-overlay" id="formOverlay" onclick="closeForm()"></div>
+
+  <div class="form-container" id="energyForm">
+    <button class="close-btn" onclick="closeForm()">×</button>
+    <h3>Manual Fault Entry</h3>
+    <form id="faultForm">
+      <label>Device Name</label>
+      <input type="text" id="deviceName" placeholder="e.g. Refrigerator" required>
+      <label>Fault Description</label>
+      <input type="text" id="faultDesc" placeholder="e.g. Overheating" required>
+      <label>Time</label>
+      <input type="text" id="faultTime" placeholder="e.g. 2025-04-15 11:00 AM" required>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+
+  <!-- Embedded JavaScript -->
+  <script>
+    function openForm() {
+      document.getElementById('energyForm').classList.add('active');
+      document.getElementById('formOverlay').classList.add('active');
+    }
+
+    function closeForm() {
+      document.getElementById('energyForm').classList.remove('active');
+      document.getElementById('formOverlay').classList.remove('active');
+    }
+
+    document.getElementById('faultForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('deviceName').value;
+      const desc = document.getElementById('faultDesc').value;
+      const time = document.getElementById('faultTime').value;
+
+      let color = "red";
+      if (desc.toLowerCase().includes("low")) {
+        color = "orange";
+      } else if (desc.toLowerCase().includes("normal")) {
+        color = "green";
+      }
+
+      const newRow = `
+        <tr>
+          <td>${name}</td>
+          <td style="color: ${color};">${desc}</td>
+          <td>${time}</td>
+        </tr>
+      `;
+
+      document.getElementById('faultTableBody').insertAdjacentHTML('beforeend', newRow);
+      document.getElementById('faultForm').reset();
+      closeForm();
+    });
+  </script>
+</body>
+</html>
