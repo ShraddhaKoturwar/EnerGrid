@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Energy Limits</title>
+  <link rel="stylesheet" href="astyles.css" />
+  <style>
+    /* Form Container */
+    .form-container {
+      margin: 0 auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      box-sizing: border-box;
+      display: none; /* Initially hide the form */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2>Per Device Energy Limits</h2>
+      <p class="tip">Set daily energy consumption limits for individual devices.</p>
+
+      <!-- Device List -->
+      <div class="device-list" id="device-list">
+        <!-- Existing devices will go here -->
+        <div class="device-item">
+          <div>
+            <strong>🧊 Refrigerator</strong>
+            <p class="tip">Limit: 5.0 kWh</p>
+          </div>
+          <a href="#">Edit</a>
+        </div>
+        <div class="device-item">
+          <div>
+            <strong>🍽️ Dishwasher</strong>
+            <p class="tip">Limit: 3.5 kWh</p>
+          </div>
+          <a href="#">Edit</a>
+        </div>
+        <div class="device-item">
+          <div>
+            <strong>❄️ Air Conditioner</strong>
+            <p class="tip">Limit: 7.0 kWh</p>
+          </div>
+          <a href="#">Edit</a>
+        </div>
+        <div class="device-item">
+          <div>
+            <strong>🧺 Washing Machine</strong>
+            <p class="tip">Limit: 4.0 kWh</p>
+          </div>
+          <a href="#">Edit</a>
+        </div>
+      </div>
+
+      <!-- Add Device Form -->
+      <div class="form-container">
+        <h3>Add a New Device</h3>
+        <form id="device-form">
+          <label for="device-name">Device Name</label>
+          <input type="text" id="device-name" name="device-name" required />
+
+          <label for="device-limit">Energy Limit (kWh)</label>
+          <input type="number" id="device-limit" name="device-limit" required />
+
+          <button type="submit">Add Device</button>
+        </form>
+      </div>
+
+      <button class="primary-btn" id="add-device-btn">Add Device</button>
+    </div>
+  </div>
+
+  <script>
+    // Select elements
+    const addDeviceBtn = document.getElementById('add-device-btn');
+    const deviceForm = document.getElementById('device-form');
+    const deviceList = document.getElementById('device-list');
+    const formContainer = document.querySelector('.form-container');
+
+    // Show the form when "Add Device" button is clicked
+    addDeviceBtn.addEventListener('click', () => {
+      formContainer.style.display = 'block';
+      addDeviceBtn.style.display = 'none'; // Hide the "Add Device" button
+    });
+
+    // Handle form submission
+    deviceForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      // Get values from the form
+      const deviceName = document.getElementById('device-name').value;
+      const deviceLimit = document.getElementById('device-limit').value;
+
+      // Create a new device item
+      const deviceItem = document.createElement('div');
+      deviceItem.classList.add('device-item');
+      deviceItem.innerHTML = `
+        <div>
+          <strong>🔌 ${deviceName}</strong>
+          <p class="tip">Limit: ${deviceLimit} kWh</p>
+        </div>
+        <a href="#">Edit</a>
+      `;
+
+      // Append new device to the device list
+      deviceList.appendChild(deviceItem);
+
+      // Hide the form and show the "Add Device" button again
+      formContainer.style.display = 'none';
+      addDeviceBtn.style.display = 'inline-block';
+
+      // Reset form fields
+      deviceForm.reset();
+    });
+  </script>
+</body>
+</html>
