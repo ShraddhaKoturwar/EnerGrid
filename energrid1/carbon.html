@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carbon Footprint Tracker</title>
+  <link rel="stylesheet" href="astyles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Carbon Footprint Tracker</h1>
+      <p>Monitor and reduce your building’s CO₂ emissions in real-time.</p>
+    </header>
+
+    <div class="grid">
+      <!-- Emissions Overview -->
+      <div class="card">
+        <h2>Emissions Overview</h2>
+        <p class="emission-value"><strong>1.6 tons CO₂</strong></p>
+        <p>Total emissions this month</p>
+        <div class="highlight">Goal: Reduce by 10%</div>
+        <div class="highlight">20% offset via green energy</div>
+      </div>
+
+      <!-- Emissions by Source -->
+      <div class="card">
+        <h2>Emissions by Source</h2>
+        <div class="source"><span class="icon">🔵</span><span>680 kg CO₂</span><span>42%</span></div>
+        <div class="source"><span class="icon">💡</span><span>320 kg CO₂</span><span>20%</span></div>
+        <div class="source"><span class="icon">📦</span><span>280 kg CO₂</span><span>17%</span></div>
+        <div class="source"><span class="icon">⚙️</span><span>220 kg CO₂</span><span>14%</span></div>
+      </div>
+
+      <!-- Sustainability Insights -->
+      <div class="card">
+        <h2>Sustainability Insights</h2>
+        <ul class="insights">
+          <li>Optimize HVAC schedule</li>
+          <li>Spikes from weekend usage</li>
+          <li>Switch to LED lighting</li>
+        </ul>
+      </div>
+
+      <!-- Emission Trends -->
+      <div class="card">
+        <h2>Emission Trends</h2>
+        <canvas id="lineChart" width="300" height="150"></canvas>
+        <canvas id="barChart" width="300" height="100"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart.js Script -->
+  <script>
+    const ctxLine = document.getElementById('lineChart').getContext('2d');
+    const ctxBar = document.getElementById('barChart').getContext('2d');
+
+    new Chart(ctxLine, {
+      type: 'line',
+      data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [{
+          label: 'CO₂ Emissions (kg)',
+          data: [400, 350, 300, 250],
+          borderColor: '#007bff',
+          backgroundColor: 'rgba(0, 123, 255, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+        labels: ['Electricity', 'HVAC', 'Lighting', 'Equipment'],
+        datasets: [{
+          label: 'Source Emissions (kg)',
+          data: [680, 320, 280, 220],
+          backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545']
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
