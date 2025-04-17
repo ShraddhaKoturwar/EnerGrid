@@ -12,4 +12,4 @@ Start Services
 Open XAMPP Control Panel
 Visit http://localhost/phpmyadmin
 Run the App
-Go to: http://localhost/energrid1.html/login.html
+Go to: http://localhost/energrid1/login.html
